@@ -1,8 +1,10 @@
 package pvnghe.patternslibrary.activity;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pvnghe.patternslibrary.R;
 import pvnghe.patternslibrary.designpatterns.Task;
@@ -45,21 +50,15 @@ public class MainActivity extends AppCompatActivity {
         Task.register(this, CallPhoneNumber.class, new Task.Assigner<CallPhoneNumber>() {
             @Override
             public void onRun(CallPhoneNumber object) {
+                try {
+                    Log.i(CallPhoneNumber.class.getSimpleName(), object.phonenumber);
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse(object.phonenumber));
+                    startActivity(callIntent);
 
-                Log.i(CallPhoneNumber.class.getSimpleName(), object.phonenumber);
-                Intent callIntent = new Intent(Intent.ACTION_NEW_OUTGOING_CALL);
-                callIntent.setData(Uri.parse(object.phonenumber));
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                startActivity(callIntent);
 
             }
         });
@@ -72,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         String phonenumber;
 
         public CallPhoneNumber(String phonenumber) {
-            this.phonenumber = phonenumber;
+            String stringTel = "tel:";
+            this.phonenumber = stringTel.concat(phonenumber);
         }
     }
 }
