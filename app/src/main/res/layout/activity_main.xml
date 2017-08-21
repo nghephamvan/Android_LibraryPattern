@@ -11,23 +11,22 @@
     android:orientation="vertical"
     tools:context="pvnghe.patternslibrary.activity.MainActivity">
     <TextView
+        android:id="@+id/text_view_result"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
     <EditText
         android:id="@+id/phone_number"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:digits="0123456789+"  />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button_call"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="Call" />
+        android:text="Add text" />
 </LinearLayout>

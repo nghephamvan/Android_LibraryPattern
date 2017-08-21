@@ -8,14 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import pvnghe.patternslibrary.R;
 import pvnghe.patternslibrary.designpatterns.Task;
+import pvnghe.patternslibrary.util.TextUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     Button buttonCall;
     EditText editTextPhone;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +27,17 @@ public class MainActivity extends AppCompatActivity {
 
         buttonCall = (Button) findViewById(R.id.button_call);
         editTextPhone = (EditText) findViewById(R.id.phone_number);
+        textView = (TextView) findViewById(R.id.text_view_result);
 
         buttonCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumber = editTextPhone.getText().toString().trim();
-                if (phoneNumber.isEmpty() || phoneNumber.length() <= 0) {
+                String textInput = editTextPhone.getText().toString().trim();
+                if (textInput.isEmpty() || textInput.length() <= 0) {
                     return;
                 }
 
-                Task.publish(new CallPhoneNumber(phoneNumber));
+                textView.setText(TextUtils.addLinkPhoneNumber(textInput));
             }
         });
 
